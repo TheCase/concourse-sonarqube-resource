@@ -74,3 +74,10 @@ jq -n "{
       { name: \"project_status\", value: \"${project_status}\" }
   ]
 }" >&3
+
+if [ "${project_status}" != "OK" ]; then
+  echo "project status is not OK:"
+  jq -r .projectStatus.conditions ./qualitygate_project_status.json
+  exit 1
+fi
+
